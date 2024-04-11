@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+
+
+<html>
+
+<script src='commons/jquery/dist/jquery.js'></script>
+<script src='commons/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src='commons/mustache/mustache.js'></script>
+<script src='crudHandler.js'></script>
+<script src='helperFunction.js'></script>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Stock Information Notification System</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i"
+          rel="stylesheet"/>
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable = no">
+    <meta charset="utf-8">
+
+
+    <style>
+      html,body {
+        background-image: url('C:/Users/mrpoo/Downloads/pp/pp/test/Front end/k.jpg'); /* Add your image path here */
+              background-size: 100% 100%;
+              
+              font-family: 'Calibri';
+              margin: 0;
+              padding: 0;
+              height: 100%;
+    }
+
+    .subscriber {
+    border: 3px solid white;
+    width: 300px; /* Adjust width as needed */
+    padding: 20px;
+    margin: 5px;
+    background-color: rgba(255, 255, 255, 0.8); /* Assuming you want some opacity */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligns items to the start of the flex container */
+    overflow: hidden; /* Hides any content that overflows */
+}
+
+.TopicNames, .sub_notif_list {
+    overflow-y: auto; /* Allows for a scrollbar if content overflows */
+    max-height: 100px; /* Adjust this value to fit your design */
+    margin-bottom: 10px; /* Space below the list */
+    width: 100%; /* Ensure the list takes full width of the container */
+}
+
+.TopicNames li, .sub_notif_list li {
+    word-wrap: break-word; /* Wraps long words to the next line */
+    list-style-type: decimal; /* Ensures numbers are shown for list items */
+    padding-right: 20px; /* Prevents text from touching the scrollbar */
+}
+    
+.publisher {
+    border: 3px solid white;
+    width: 300px; /* Adjust the width as needed */
+    height: auto;
+    padding: 20px;
+    margin: 5px;
+    background-color: rgba(255, 255, 255, 0.8); /* Assuming you want some opacity */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligns items to the start of the flex container */
+}
+
+.publisher ol {
+    overflow-y: auto; /* Enables vertical scrolling */
+    max-height: 200px; /* Set a maximum height */
+    width: 100%; /* Ensure the list takes the full width of the container */
+    padding-left: 5px; /* Provide space for the numbering */
+}
+
+.publisher ol li {
+    word-wrap: break-word; /* Allows words to break and wrap onto the next line */
+    margin-bottom: 10px; /* Space between list items */
+    background-color: #f8f8f8; /* Slightly different background for contrast */
+    padding-right: 15px; /* Padding inside each list item */
+    list-style-type: decimal; /* Keep the list decimal type for numbers */
+}
+
+    .textbox-design{
+    	width:500px;
+    	margin-top:5px;
+    	margin-bottom:5px;
+      position: relative;
+      font-family: 'Calibri';
+
+    }
+    .textbox-design input{
+    		width:70%;
+    		display: inline;
+            position: relative;
+    }
+
+    .textbox-design button{
+    		width:34.5%;
+        position: relative;
+
+    }
+    h1{
+      font-size: 60px;
+      font-weight: 200;
+      font-family: 'Montserrat', sans-serif;
+      color: blue;
+      text-align: center;
+    }
+    h2{
+      font-size: 60px;
+      font-weight: 200;
+      font-family: 'Montserrat', sans-serif;
+      color:rgb(15, 162, 211);
+    }
+    #input_area {
+      overflow: hidden;
+      word-wrap: break-word;
+      position: relative;
+      /*bottom: 100%;*/
+      left: 0%;
+      right:50%;
+      z-index: 5;
+      width: 100%;
+      height: 10%;
+      /*padding: 10px;
+      border: 2px solid #989;*/
+      text-align: center;
+      font-family: 'Open Sans','sans-serif';
+      /*line-height: 20px;*/
+      /*background-image: url(https://images.unsplash.com/photo-1531585778618-fa2a2283a4eb?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b5b06d09e5e180315962be315f040720&auto=format&fit=crop&w=298&q=80);*/
+      /*background-image: :url(https://images.unsplash.com/photo-1516912481808-3406841bd33c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=859ed08b994af2b44509aeb00f56d7f9&auto=format&fit=crop&w=683&q=80);*/
+      /*background-size:cover;*/
+    }
+    #flaticon{
+      font-size: 8px;
+    }
+    ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #2a2d2fab;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+
+    </style>
+</head>
+<body>
+<!-- Navigation-->
+<ul>
+    <li><a href="index.html">Home</a></li>
+  </ul>
+
+</div>
+
+<br>
+<!-- This is the publishers section-->
+
+<!-- References
+      https://www.w3schools.com/jsref/
+      https://api.jquery.com/
+      https://www.youtube.com/watch?v=frGy-nGoGU
+      https://www.youtube.com/watch?v=5wylV5in9q
+      https://hackernoon.com/observer-vs-pub-sub-pattern-50d3b27f838c
+      https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern
+-->
+<div class="container">
+    <div class="row">
+
+        <div class="col-md">
+            <h2 style="padding-top: 75px;"> Publishers </h2>
+            <!-- This division is for adding and removing publishers-->
+            <div id='add_rem_pub' class='textbox-design'>
+                <input type='text' class='form-control' placeholder='Publisher Name'>
+                <br></br>
+                <button type="button" class="btn btn btn-secondary btn-md">Add</button>
+                <button type="button" class="btn btn btn-secondary btn-md">Remove</button>
+
+            </div>
+            <!-- This division deals with the list of publishers-->
+            <div id='list-of-publishers'>
+                {{#list_of_publishers}}
+                <!-- This is an array, so we need to access it through sections.
+                  {{#list_of_publishers}}
+                  /* something*/
+                  {{/list_of_publishers}}-->
+
+                <!-- this is the division that deals with activities of a publisher-->
+                <div class='publisher'>
+                    <h5>{{name}}</h5>
+                    <input type='text' class='form-control' placeholder='Topic'>
+                    <textarea class='form-control' placeholder='Add Information'></textarea>
+                    <br>
+                    <button class='btn btn btn-secondary btn-md'>Publish</button>
+
+                    <!-- Inside publishers array, there is an array of Tweets each of which has a topic name and details.-->
+                    <ol>
+                        {{#Tweets}}
+                        <li>
+                            <b>{{TopicName}}</b>
+                            <br><br>
+                            {{Details}}
+                        </li>
+                        {{/Tweets}}
+                    </ol>
+                </div>
+                {{/list_of_publishers}}
+                <br style='clear:both'/>
+            </div>
+        </div>
+
+
+        <!-- this is the division which deals with adding and removing subscribers-->
+        <div class="col-md">
+            <h2 style="padding-top: 75px;"> Subscribers </h2>
+            <div id='add_rem_sub' class='textbox-design'>
+                <input type='text' class='form-control' placeholder='Subscriber Name'>
+                <br></br>
+                <button type="button" class="btn btn btn-secondary btn-md">Add</button>
+                <button type="button" class="btn btn btn-secondary btn-md">Remove</button>
+            </div>
+            <!-- this is the division which deals with the list of subscribers-->
+            <div id='list-of-subscribers'>
+                <!-- We need to access subscribers array through sections -->
+                {{#list_of_subscribers}}
+                <!-- this section handles all the activities of subscriber design-->
+                <div class='subscriber'>
+                    <h5>{{name}}</h5> <!-- The names are variables-->
+                    <input type='text' class='form-control' placeholder='Topic of Interest'>
+                    <br>
+                    <button type="button" class="btn btn btn-secondary btn-md">Subscribe</button>
+                    <br>
+                    <h7><b>Subscriptions</b></h7>
+                    <ol class='TopicNames'>
+                        {{#TopicNames}}
+                        <li><b>{{.}} </b></li>
+                            {{/TopicNames}}
+                    </ol>
+                    <!-- All the tweets are listed one by one in an unordered list-->
+                    <!-- <h7>Updates</h7> -->
+                    <ul class='sub_notif_list' style="background-color:white">
+                        {{#sub_notif_list}}
+                        <li><b>{{TopicName}}: </b> <br>Updates: {{Details}} <br>&emsp;&emsp;&emsp;-posted
+                            by <i>{{name}}</i>
+                            {{/sub_notif_list}}
+
+                    </ul>
+                </div>
+                {{/list_of_subscribers}}
+                <br style='clear:both'/>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- including js scripts-->
+<script src='commons/jquery/dist/jquery.js'></script>
+<script src='commons/bootstrap/dist/js/bootstrap.min.js'></script>
+<script src='crudHandler.js'></script>
+<script src='helperFunction.js'></script>
+<script src='commons/mustache/mustache.js'></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+</body>
+<html>

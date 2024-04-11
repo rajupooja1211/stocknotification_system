@@ -1,0 +1,59 @@
+version: "3"
+
+services:
+  server1:
+    build: ./master_node
+    stdin_open: true
+    tty: true
+    ports:
+      - "5040:5040"
+    networks:
+      - pub-sub-network
+    container_name: server1
+
+  server2:
+    build: ./secondary_node
+    stdin_open: true
+    tty: true
+    ports:
+      - "5041:5041"
+    networks:
+      - pub-sub-network
+    depends_on:
+      - server1
+    container_name: server2
+    
+
+  client1:
+    build: ./subscriber_1
+    stdin_open: true
+    tty: true
+    networks:
+      - pub-sub-network
+    depends_on:
+      - server2
+    container_name: Pujitha
+
+  client2:
+    build: ./subscriber_2
+    stdin_open: true
+    tty: true
+    networks:
+      - pub-sub-network
+    depends_on:
+      - server2
+    container_name: Pooja
+
+  client3:
+    build: ./subscriber_3
+    stdin_open: true
+    tty: true
+    networks:
+      - pub-sub-network
+    depends_on:
+      - server2
+    container_name: PoojaRaju
+
+networks:
+  pub-sub-network:
+    driver: bridge
